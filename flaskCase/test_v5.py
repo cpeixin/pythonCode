@@ -8,12 +8,12 @@ def index():
     return render_template("index_v5.html")
 
 
-@app.route('/send_message', methods=['GET'])
+@app.route('/send_message', methods=['POST'])
 def send_message():
     global message_get
     message_get = ""
 
-    message_get = request.args['message']
+    message_get = request.form['message']#request.args['message']
     print("收到前端发过来的信息：%s" % message_get)
     print("收到数据的类型为：" + str(type(message_get)))
 

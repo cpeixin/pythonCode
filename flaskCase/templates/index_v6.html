@@ -12,7 +12,7 @@
 <form action="{{ url_for('send_message') }}" method="post">
     <textarea name ="domain" rows="30" cols="100" placeholder="请输入需要查询的域名,如cq5999.com"></textarea>
     <!--<input id="submit" type="submit" value="发送">-->
-    <button type="submit" id="btn-bq" data-toggle="modal" data-target="#myModal">被墙查询</button>
+    <button type="submit" id="btn-bq" data-toggle="modal" data-target="#myModal">查询</button>
 </form>
 
 <div>
@@ -25,26 +25,26 @@
     <input id="recv_content" type="text" name="recv_content">
 </div>
 
-<!--&lt;!&ndash; 发送 &ndash;&gt;-->
-<!--<script type="text/javascript">-->
-    <!--$("#submit").click(function () {-->
-        <!--var message = $("#domain").val()-->
-        <!--alert(message)-->
-        <!--$.ajax({-->
-            <!--url:"/send_message",-->
-            <!--type:"GET",-->
-            <!--data:{-->
-                <!--message:message-->
-            <!--},-->
-            <!--success:function (data) {-->
+<!-- 发送 -->
+<script type="text/javascript">
+    $("#submit").click(function () {
+        var message = $("#domain").val()
+        alert(message)
+        $.ajax({
+            url:"/send_message",
+            type:"GET",
+            data:{
+                message:message
+            },
+            success:function (data) {
 
-            <!--},-->
-            <!--error:function () {-->
-                <!--alert("接收失败")-->
-            <!--}-->
-        <!--})-->
-    <!--})-->
-<!--</script>-->
+            },
+            error:function () {
+                alert("接收失败")
+            }
+        })
+    })
+</script>
 
 <!-- 接收 -->
 <script type="text/javascript">
