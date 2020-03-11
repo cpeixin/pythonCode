@@ -10,50 +10,49 @@ produce决定不生产了，通过c.close()关闭consumer，整个过程结束�
 “子程序就是协程的一种特例。”
 """
 
-
 # def consumer():
-#     while 1:
-#         data = yield n
-#         print("消费者消费了第{}个包子".format(str(data)))
-#
-#         n = data
-#
-# def produce():
-#     c.__next__() # 启动生成器 相当于 c.send(None)
-#     i = 1
-#     import time
-#     while 1:
-#         time.sleep(1)
-#         print("生产者生产了第{}个包子".format(str(i)))
-#         n = c.send(i)
-#         print("消费者对第{}个包子付了钱".format(str(n)))
-#         i+=1
-#
-#
-# if __name__ == '__main__':
-#     c = consumer()
-#     produce()
+# #     r = '' # 3
+# #     while True:
+# #         n = yield r # step4  # step8 （r赋值'200k'）
+# #         if not n: # step7 （n=1）
+# #             return
+# #         print('[CONSUMER] Consuming %s...' % n)
+# #         r = '200 OK'
+# #
+# # def produce(c):
+# #     c.send(None) # 2 # 5
+# #     n = 0
+# #     while n < 5:
+# #         n = n + 1
+# #         print('[PRODUCER] Producing %s...' % n)
+# #         r = c.send(n) # step6 (将send(1)中的1强制赋给 yield 左边的变量)  # step9 （r接收到yield返回右边变量的值，r=200k）
+# #         print('[PRODUCER] Consumer return: %s' % r) # step10
+# #     c.close()
+# #
+# # c = consumer()
+# # produce(c) # step1
 
 
 
-def consumer():
-    r = ''
-    while True:
-        n = yield r
-        if not n:
-            return
-        print('[CONSUMER] Consuming %s...' % n)
-        r = '200 OK'
+import inspect
 
-def produce(c):
-    c.send(None)
-    n = 0
-    while n < 5:
-        n = n + 1
-        print('[PRODUCER] Producing %s...' % n)
-        r = c.send(n)
-        print('[PRODUCER] Consumer return: %s' % r)
-    c.close()
+def generator():
+     i = '激活生成器' # 4
+     while True:
+        try: #8
+            value = yield i # 5 , # 9 value =  Hello Shiyanlou ,返回 i的值给第10步
+        except ValueError:
+             print('OVER')
+        i = value # 7 i=value=Hello Shiyanlou
 
-c = consumer()
-produce(c)
+
+g = generator()  # 1
+inspect.getgeneratorstate(g)  # 2
+print(next(g)) # 3 # 5
+inspect.getgeneratorstate(g)
+print(g.send('Hello Shiyanlou')) #6 # 10
+g.throw(ValueError)
+
+g.close()
+
+inspect.getgeneratorstate(g)

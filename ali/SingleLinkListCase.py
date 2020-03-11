@@ -12,34 +12,41 @@
 """
 
 
-
-class Node:#定义节点
-   def __init__(self, initdata):
+class Node:  # 定义节点
+    def __init__(self, initdata):
         self.__data = initdata
         self.__next = None
-   def getData(self):
+
+    def getData(self):
         return self.__data
-   def getNext(self):
+
+    def getNext(self):
         return self.__next
-   def setData(self, newdata):
+
+    def setData(self, newdata):
         self.__data = newdata
-   def setNext(self, newnext):
+
+    def setNext(self, newnext):
         self.__next = newnext
+
+
 class SingleLinkedlist:
     def __init__(self):
-        self.head = Node(None) # 头节点赋值None
+        self.head = Node(None)  # 头节点赋值None
         self.head.setNext(self.head)
+
     def add(self, item):
         temp = Node(item)
         temp.setNext(self.head.getNext())
         self.head.setNext(temp)
+
     def reverse(self):
-        header =self.head
+        header = self.head
         if header == None or header.getNext().getData() == None:
             pass
-        p1 = header       #p1,p2,p3就相当于C语言里的三个指针
+        p1 = header  # p1,p2,p3就相当于C语言里的三个指针
         p2 = p1.getNext()
-        while(p2.getData()!=None):
+        while(p2.getData() != None):
             p3 = p2.getNext()
             p2.setNext(p1)
             p1 = p2
@@ -48,15 +55,18 @@ class SingleLinkedlist:
         header = p1
         self.head.setData(None)
         self.head.setNext(p1)
+
     def print_list(self):
         l = []
-        p =self.head
-        if p.getData()!= None:
+        p = self.head
+        if p.getData() != None:
             l.append(p.getData())
-        while (p.getNext().getData()!= None):
+        while (p.getNext().getData() != None):
             p = p.getNext()
             l.append(p.getData())
         print(l)
+
+
 if __name__ == '__main__':
     s = SingleLinkedlist()
     s.add(10)
@@ -66,7 +76,7 @@ if __name__ == '__main__':
     s.add(6)
     s.add(5)
     s.print_list()
-    p =s.head
+    p = s.head
     s.reverse()
     print("After reverse...")
     s.print_list()
